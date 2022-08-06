@@ -4,8 +4,8 @@ from django.views.generic import (
     CreateView,
     UpdateView,
 )
-
 from .models import Card
+import random
 
 class CardListView(ListView):
     model = Card
@@ -28,5 +28,7 @@ class BoxView(CardListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["box_number"] = self.kwargs["box_num"]
+        if self.object_list:
+            context["check_card"] = random.choice(self.object_list)
         return context
     
